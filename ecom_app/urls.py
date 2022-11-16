@@ -7,4 +7,6 @@ urlpatterns = [
     path("inventory/<str:category>", views.displayItems),
     path("addItemToCart/<int:id>", views.add_to_cart),
     path('cart', views.myCart),
+    path('product/', views.product),
+    path('seeDetails/<str:id>', views.seeDetails)
 ]

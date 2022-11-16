@@ -5,3 +5,8 @@
 .row{
     border-bottom: solid black 3px;
 }
+
+a{
+    color: white;
+    text-decoration: none;
+}

@@ -12,11 +12,12 @@
           <h5 class="card-title">{{item.title}}</h5>
           <p class="card-text">
             <ul>
-                <li>Price: {{item.price}}</li>
+                <li>Price: {{item.price|floatformat:2}}</li>
                 <li>Category: {{item.category}}</li>
             </ul>
           </p>
           <button class="btn btn-primary" onclick="addItemToCart({{item.id}})">Add to Cart</button>
+          <button class="btn btn-primary" ><a href="/seeDetails/{{item.id}}"> Details</a></button>
         </div>
       </div>
     {% endfor %}

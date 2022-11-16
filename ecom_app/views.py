@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from .csv_handler import CSV_Interface
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
 import math
+from dotenv import load_dotenv
+from requests_oauthlib import OAuth1
+import requests
+
+load_dotenv()
 inventory=CSV_Interface("/Users/franciscoavila/Desktop/assessment-3/ecom_pro/ecom_app/data/inventory.csv")
 cart=CSV_Interface("/Users/franciscoavila/Desktop/assessment-3/ecom_pro/ecom_app/data/mycart.csv")
 links=['Games', 'Consoles', 'Chairs']
@@ -55,6 +60,17 @@ def add_to_cart(request, id):
                 'success': False,
                 'failure': e
             })
+
+@csrf_exempt     
+def seeDetails(request, id):
+        items=inventory.get_data()
+        data={
+            "navlinks":links
+        }
+        for item in items:
+            if item['id']== id:
+                data["item"]=item
+        return render(request, 'pages/product.html', data)
     
 def myCart(request):
     total=0
@@ -66,3 +82,22 @@ def myCart(request):
         "navlinks":links
     }
     return render(request, 'pages/cart.html', data)
+
+def product(request):
+    try:
+        item=request.POST.get("item")
+        key=str(os.environ["key"])
+        secret=str(os.environ["secret"])
+        auth = OAuth1(key, secret)
+        endpoint = f"http://api.thenounproject.com/icon/{item}"
+        API_response = requests.get(endpoint, auth=auth)
+        JSON_response=API_response.json()
+        img_url=JSON_response['icon']['preview_url']
+        img={
+            'img':img_url,
+            "navlinks": links
+        }
+        return render(request, 'pages/searchResult.html', img)
+    except Exception as e:
+        print(e)
+        return HttpResponse("It didn't work")

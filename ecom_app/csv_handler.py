@@ -32,7 +32,7 @@ class CSV_Interface:
     
     def append_one_row_to_file(self, new_data_dict):
         """ writes to csv file by row then it updates the current all_data """
-        print(new_data_dict.keys())
+        # print(new_data_dict.keys())
         
         #  "a" just appends to the data instead of "w" which overwites it
         with open(self.filename, "a", newline='') as f:

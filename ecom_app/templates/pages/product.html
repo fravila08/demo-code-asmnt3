@@ -1,0 +1,11 @@
+{% extends 'pages/layout.html' %}
+{% load static %}
+{% block main %}
+    <img src="{{item.img}}" />
+    <h3>TITEL: {{item.title}}</h3>
+    <ul>
+        <li>PRICE: {{item.price|floatformat:2}}</li>
+        <li>CATEGORY: {{item.category}}</li>
+        <li>ID: {{item.id}}</li>
+    <ul>
+{% endblock %}
