@@ -1,0 +1,24 @@
+{% extends 'pages/layout.html' %}
+{% load static %}
+{% block main %}
+    <div style="width:100vw; text-align:center; margin-bottom: 5vh;">
+        <h2>{{category}}</h2>
+    </div>
+    <div style="display:flex; justify-content:space-evenly;">
+    {% for item in inventory %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{item.img}}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{item.title}}</h5>
+          <p class="card-text">
+            <ul>
+                <li>Price: {{item.price}}</li>
+                <li>Category: {{item.category}}</li>
+            </ul>
+          </p>
+          <button class="btn btn-primary" onclick="addItemToCart({{item.id}})">Add to Cart</button>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+#container{
+    border:solid black 3px;
+}
+
+.row{
+    border-bottom: solid black 3px;
+}
